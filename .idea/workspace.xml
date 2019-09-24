@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f4e567ee-896c-4697-b13b-9c29c6c9f961" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/spec/minimax_too_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/minimax_too_spec.rb" afterDir="false" />
     </list>
@@ -44,7 +43,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1569230040550</updated>
-      <workItem from="1569230041641" duration="15317000" />
+      <workItem from="1569230041641" duration="16381000" />
     </task>
     <servers />
   </component>
