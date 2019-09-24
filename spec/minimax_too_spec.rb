@@ -5,12 +5,24 @@ class Minimax
     result = tree[0]
 
     tree.each do |node|
-      unless node[:children].empty?
-        node[:score] += node[:children].min_by { |c| c[:score] }[:score] - 1
-      end
+      node[:score] += score_of(node[:children], false)
       result = node if node[:score] > result[:score]
     end
     result[:position]
+  end
+
+  private
+
+  def self.score_of(children, max)
+    return 0 if children.empty?
+
+    child_score = children.map { |child| score_of(child[:children], !max) }.sum
+
+    child_score + min_or_max(children, max) { |c| c[:score] }[:score] - 1
+  end
+
+  def self.min_or_max(children, max, &block)
+    max ? children.max_by(&block) : children.min_by(&block)
   end
 end
 
@@ -116,6 +128,41 @@ describe Minimax do
             {position: 3, children: [], score: 0}]
     expect(Minimax.best_move(tree)).to eq(3)
   end
+
+  it "returns best position based on depth (example 1)" do
+    tree = [{position: 2, children: [{position: 3, children: [], score: 10}], score: 0},
+            {position: 3, children: [{position: 4, children: [], score: 0}], score: 0}]
+    expect(Minimax.best_move(tree)).to eq(2)
+  end
+
+  it "returns best position with depth of 2" do
+    tree = [{position: 2, children: [{position: 3, children: [{position: 4, children: [], score: 10}], score: 0}], score: 0},
+            {position: 3, children: [], score: 0}]
+    expect(Minimax.best_move(tree)).to eq(2)
+  end
+
+  it "returns best position with depth of 2" do
+    tree = [{position: 2, children: [{position: 3, children: [], score: 0}, {position: 5, children: [{position: 9, children: [], score: 10}], score: 0}], score: 0},
+            {position: 3, children: [], score: 0}]
+    expect(Minimax.best_move(tree)).to eq(2)
+  end
+
+  it "returns best position with depth of 2" do
+    tree = [{position: 2, children: [{position: 3, children: [], score: 0},
+                                     {position: 5, children: [{position: 9, children: [], score: 10},
+                                                              {position: 8, children: [], score: 0}], score: 0}], score: 0},
+            {position: 3, children: [], score: 0}]
+    expect(Minimax.best_move(tree)).to eq(2)
+  end
+
+  it "returns best position with depth of 2" do
+    tree = [{position: 2, children: [{position: 3, children: [], score: -10},
+                                     {position: 5, children: [{position: 9, children: [], score: 10},
+                                                              {position: 8, children: [], score: 0}], score: 0}], score: 0},
+            {position: 3, children: [], score: 0}]
+    expect(Minimax.best_move(tree)).to eq(3)
+  end
+
 
 
 
